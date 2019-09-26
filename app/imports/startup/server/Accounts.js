@@ -14,6 +14,25 @@ function createUser(email, password, role) {
   if (role === 'admin') {
     Roles.addUsersToRoles(userID, 'admin');
   }
+  if (role === 'workshopB2B') {
+    Roles.addUsersToRoles(userID, 'workshopB2B');
+    Roles.addUsersToRoles(userID, 'admin');
+  }
+  if (role === 'superAdmin') {
+    Roles.addUsersToRoles(userID, 'admin');
+    Roles.addUsersToRoles(userID, 'superAdmin');
+  }
+  if (role === 'sandridge') {
+    Roles.addUsersToRoles(userID, 'sandridge');
+  }
+  if (role === 'b4h') {
+    Roles.addUsersToRoles(userID, 'b4h');
+    Roles.addUsersToRoles(userID, 'admin');
+  }
+  if (role === 'jarad') {
+    Roles.addUsersToRoles(userID, 'jarad');
+    Roles.addUsersToRoles(userID, 'admin');
+  }
 }
 
 /** When running app for first time, pass a settings file to set up a default user account. */

@@ -7,14 +7,17 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
-import ListStuff from '../pages/ListStuff';
-import ListStuffAdmin from '../pages/ListStuffAdmin';
-import AddStuff from '../pages/AddStuff';
-import EditStuff from '../pages/EditStuff';
+import Shop from '../pages/Shop';
 import NotFound from '../pages/NotFound';
+import PayNow from '../pages/PayNow';
+import PartsOrdering from '../pages/PartsOrdering';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
+import Servicing from '../pages/Servicing';
 import Signout from '../pages/Signout';
+import Admin from '../pages/Admin';
+import Attendance from '../pages/Attendance';
+import SuperAdmin from '../pages/SuperAdmin';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -25,12 +28,15 @@ class App extends React.Component {
             <NavBar/>
             <Switch>
               <Route exact path="/" component={Landing}/>
-              <Route path="/signin" component={Signin}/>
+              <Route path="/attendance" component={Attendance}/>
               <Route path="/signup" component={Signup}/>
-              <ProtectedRoute path="/list" component={ListStuff}/>
-              <ProtectedRoute path="/add" component={AddStuff}/>
-              <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
-              <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
+              <Route path="/signin" component={Signin}/>
+              <Route path="/shop" component={Shop}/>
+              <ProtectedRoute path="/partsordering" component={PartsOrdering}/>
+              <ProtectedRoute path="/servicing" component={Servicing}/>
+              <ProtectedRoute path="/paynow" component={PayNow}/>
+              <AdminProtectedRoute path="/admin" component={Admin}/>
+              <SuperAdminProtectedRoute path="/superadmin" component={SuperAdmin}/>
               <ProtectedRoute path="/signout" component={Signout}/>
               <Route component={NotFound}/>
             </Switch>
@@ -78,6 +84,20 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => (
     />
 );
 
+const SuperAdminProtectedRoute = ({ component: Component, ...rest }) => (
+  <Route
+      {...rest}
+      render={(props) => {
+        const isLogged = Meteor.userId() !== null;
+        const isAdmin = Roles.userIsInRole(Meteor.userId(), 'superAdmin');
+        return (isLogged && isAdmin) ?
+            (<Component {...props} />) :
+            (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
+            );
+      }}
+  />
+);
+
 /** Require a component and location to be passed to each ProtectedRoute. */
 ProtectedRoute.propTypes = {
   component: PropTypes.func.isRequired,
@@ -86,6 +106,11 @@ ProtectedRoute.propTypes = {
 
 /** Require a component and location to be passed to each AdminProtectedRoute. */
 AdminProtectedRoute.propTypes = {
+  component: PropTypes.func.isRequired,
+  location: PropTypes.object,
+};
+
+SuperAdminProtectedRoute.propTypes = {
   component: PropTypes.func.isRequired,
   location: PropTypes.object,
 };

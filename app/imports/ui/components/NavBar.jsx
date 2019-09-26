@@ -15,12 +15,29 @@ class NavBar extends React.Component {
         <Menu.Item as={NavLink} activeClassName="" exact to="/">
           <Header inverted as='h1'>meteor-application-template</Header>
         </Menu.Item>
+        <Menu.Item as={NavLink} activeClassName="active" exact to="/shop" key='shop'>Shop</Menu.Item>
         {this.props.currentUser ? (
-            [<Menu.Item as={NavLink} activeClassName="active" exact to="/add" key='add'>Add Stuff</Menu.Item>,
-              <Menu.Item as={NavLink} activeClassName="active" exact to="/list" key='list'>List Stuff</Menu.Item>]
+          <Menu.Item as={NavLink} activeClassName="active" exact to="/attendance" key='attendance'>Attendance</Menu.Item>
         ) : ''}
-        {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
-            <Menu.Item as={NavLink} activeClassName="active" exact to="/admin" key='admin'>Admin</Menu.Item>
+        {Roles.userIsInRole(Meteor.userId(), 'workshopB2B') ? (
+          [<Menu.Item as={NavLink} activeClassName="active" exact to="/paynow" key='paynow'>Pay Now</Menu.Item>,
+          <Menu.Item as={NavLink} activeClassName="active" exact to="/servicing" key='servicing'>Servicing</Menu.Item>,
+          <Menu.Item as={NavLink} activeClassName="active" exact to="/partsordering" key='partsordering'>PartsOrdering</Menu.Item>,
+          <Menu.Item as={NavLink} activeClassName="active" exact to="/admin" key='admin'>Admin</Menu.Item>]      
+        ) : ''}
+        {Roles.userIsInRole(Meteor.userId(), 'superAdmin') ? (
+          [<Menu.Item as={NavLink} activeClassName="active" exact to="/paynow" key='paynow'>Pay Now</Menu.Item>,
+          <Menu.Item as={NavLink} activeClassName="active" exact to="/servicing" key='servicing'>Servicing</Menu.Item>,
+          <Menu.Item as={NavLink} activeClassName="active" exact to="/partsordering" key='partsordering'>PartsOrdering</Menu.Item>,
+          <Menu.Item as={NavLink} activeClassName="active" exact to="/admin" key='admin'>Admin</Menu.Item>,
+          <Menu.Item as={NavLink} activeClassName="active" exact to="/superadmin" key='superadmin'>Super Admin</Menu.Item>]      
+        ) : ''}
+        {Roles.userIsInRole(Meteor.userId(), 'b4h') ? (
+          <Menu.Item as={NavLink} activeClassName="active" exact to="/admin" key='admin'>Admin</Menu.Item>
+        ) : ''}
+        {Roles.userIsInRole(Meteor.userId(), 'jarad') ? (
+          [<Menu.Item as={NavLink} activeClassName="active" exact to="/paynow" key='paynow'>Pay Now</Menu.Item>,
+          <Menu.Item as={NavLink} activeClassName="active" exact to="/admin" key='admin'>Admin</Menu.Item>]      
         ) : ''}
         <Menu.Item position="right">
           {this.props.currentUser === '' ? (
