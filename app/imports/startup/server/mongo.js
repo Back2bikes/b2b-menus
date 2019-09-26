@@ -1,5 +1,5 @@
-import { Meteor } from 'meteor/meteor';
-import { Stuffs } from '../../api/stuff/Stuff.js';
+import { Meteor } from "meteor/meteor";
+import { Stuffs } from "/imports/api/stuff/stuff.js";
 
 /* eslint-disable no-console */
 
@@ -12,7 +12,7 @@ function addData(data) {
 /** Initialize the collection if empty. */
 if (Stuffs.find().count() === 0) {
   if (Meteor.settings.defaultData) {
-    console.log('Creating default data.');
+    console.log("Creating default data.");
     Meteor.settings.defaultData.map(data => addData(data));
   }
 }
