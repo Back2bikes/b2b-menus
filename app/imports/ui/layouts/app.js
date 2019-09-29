@@ -24,39 +24,47 @@ import Signout from "../pages/signout";
 import Admin from "../pages/admin";
 import VolSignIn from "../pages/vol-sign-in";
 import SuperAdmin from "../pages/super-admin";
+import "./app.css";
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup. */
 class App extends React.Component {
   render() {
     return (
       <Router>
-        <div>
-          <NavBar />
-          <Switch>
-            <Route exact path="/" component={Landing} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/signin" component={Signin} />
-            <Route path="/shop" component={Shop} />
-            <VolSignInProtectedRoute path="/volsignin" component={VolSignIn} />
-            <PartsProtectedRoute path="/parts" component={Parts} />
-            <ServicingProtectedRoute
-              path="/newservice"
-              component={NewService}
-            />
-            <ServicingProtectedRoute
-              path="/currentjobs"
-              component={CurrentJobs}
-            />
-            <PayNowProtectedRoute path="/paynow" component={PayNow} />
-            <AdminProtectedRoute path="/admin" component={Admin} />
-            <SuperAdminProtectedRoute
-              path="/superadmin"
-              component={SuperAdmin}
-            />
-            <ProtectedRoute path="/signout" component={Signout} />
-            <Route component={NotFound} />
-          </Switch>
-          <Footer />
+        <div id="app-container">
+          <div id="sidebar-container">
+            <NavBar />
+          </div>
+          <div>
+            <Switch>
+              <Route exact path="/" component={Landing} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/signin" component={Signin} />
+              <Route path="/shop" component={Shop} />
+              <VolSignInProtectedRoute
+                path="/volsignin"
+                component={VolSignIn}
+              />
+              <PartsProtectedRoute path="/parts" component={Parts} />
+              <ServicingProtectedRoute
+                path="/newservice"
+                component={NewService}
+              />
+              <ServicingProtectedRoute
+                path="/currentjobs"
+                component={CurrentJobs}
+              />
+              <PayNowProtectedRoute path="/paynow" component={PayNow} />
+              <AdminProtectedRoute path="/admin" component={Admin} />
+              <SuperAdminProtectedRoute
+                path="/superadmin"
+                component={SuperAdmin}
+              />
+              <ProtectedRoute path="/signout" component={Signout} />
+              <Route component={NotFound} />
+            </Switch>
+            <Footer />
+          </div>
         </div>
       </Router>
     );
@@ -76,10 +84,10 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
       return isLogged ? (
         <Component {...props} />
       ) : (
-          <Redirect
-            to={{ pathname: "/signin", state: { from: props.location } }}
-          />
-        );
+        <Redirect
+          to={{ pathname: "/signin", state: { from: props.location } }}
+        />
+      );
     }}
   />
 );
@@ -89,14 +97,14 @@ const VolSignInProtectedRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={props => {
       const isLogged = Meteor.userId() !== null;
-      const hasRights = Roles.userIsInRole(Meteor.userId(), 'signin');
+      const hasRights = Roles.userIsInRole(Meteor.userId(), "signin");
       return isLogged && hasRights ? (
         <Component {...props} />
       ) : (
-          <Redirect
-            to={{ pathname: "/signin", state: { from: props.location } }}
-          />
-        );
+        <Redirect
+          to={{ pathname: "/signin", state: { from: props.location } }}
+        />
+      );
     }}
   />
 );
@@ -106,14 +114,14 @@ const PartsProtectedRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={props => {
       const isLogged = Meteor.userId() !== null;
-      const hasRights = Roles.userIsInRole(Meteor.userId(), 'parts');
+      const hasRights = Roles.userIsInRole(Meteor.userId(), "parts");
       return isLogged && hasRights ? (
         <Component {...props} />
       ) : (
-          <Redirect
-            to={{ pathname: "/signin", state: { from: props.location } }}
-          />
-        );
+        <Redirect
+          to={{ pathname: "/signin", state: { from: props.location } }}
+        />
+      );
     }}
   />
 );
@@ -123,14 +131,14 @@ const ServicingProtectedRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={props => {
       const isLogged = Meteor.userId() !== null;
-      const hasRights = Roles.userIsInRole(Meteor.userId(), 'servicing');
+      const hasRights = Roles.userIsInRole(Meteor.userId(), "servicing");
       return isLogged && hasRights ? (
         <Component {...props} />
       ) : (
-          <Redirect
-            to={{ pathname: "/signin", state: { from: props.location } }}
-          />
-        );
+        <Redirect
+          to={{ pathname: "/signin", state: { from: props.location } }}
+        />
+      );
     }}
   />
 );
@@ -140,14 +148,14 @@ const PayNowProtectedRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={props => {
       const isLogged = Meteor.userId() !== null;
-      const hasRights = Roles.userIsInRole(Meteor.userId(), 'paynow');
+      const hasRights = Roles.userIsInRole(Meteor.userId(), "paynow");
       return isLogged && hasRights ? (
         <Component {...props} />
       ) : (
-          <Redirect
-            to={{ pathname: "/signin", state: { from: props.location } }}
-          />
-        );
+        <Redirect
+          to={{ pathname: "/signin", state: { from: props.location } }}
+        />
+      );
     }}
   />
 );
@@ -166,10 +174,10 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => (
       return isLogged && hasRights ? (
         <Component {...props} />
       ) : (
-          <Redirect
-            to={{ pathname: "/signin", state: { from: props.location } }}
-          />
-        );
+        <Redirect
+          to={{ pathname: "/signin", state: { from: props.location } }}
+        />
+      );
     }}
   />
 );
@@ -183,10 +191,10 @@ const SuperAdminProtectedRoute = ({ component: Component, ...rest }) => (
       return isLogged && hasRights ? (
         <Component {...props} />
       ) : (
-          <Redirect
-            to={{ pathname: "/signin", state: { from: props.location } }}
-          />
-        );
+        <Redirect
+          to={{ pathname: "/signin", state: { from: props.location } }}
+        />
+      );
     }}
   />
 );
