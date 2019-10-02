@@ -21,7 +21,7 @@ import Signup from "../pages/signup";
 import CurrentJobs from "../pages/current-jobs";
 import NewService from "../pages/new-service";
 import Signout from "../pages/signout";
-import Admin from "../pages/admin";
+import Admin from "../pages/admin.container";
 import VolSignIn from "../pages/vol-sign-in";
 import SuperAdmin from "../pages/super-admin";
 import "./app.css";
