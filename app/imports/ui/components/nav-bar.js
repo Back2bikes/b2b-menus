@@ -27,7 +27,7 @@ class NavBar extends React.Component {
           to="/"
           style={{ textAlign: "center" }}
         >
-          <img src="/images/b2b150.jpg" className="ui small image" />
+          <img src="/images/image.png" className="ui small image" />
         </Menu.Item>
 
         {Roles.userIsInRole(Meteor.userId(), "signin") ? (
